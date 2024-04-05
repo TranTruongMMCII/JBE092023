@@ -57,6 +57,28 @@ public class UserController {
 		String userName = authentication.getName();
 		return BaseResponseController.success(userName);
 	}
+	
+	class Address{
+		int id;
+		String tinh, huyen, xa;
+		// mapping user
+	}
+	@PostMapping("/addUser")
+	ResponseEntity<?> addUser(Address address){
+		// lay thong tin userName 
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String userName = authentication.getName();
+		
+		// lay thong tin user
+		User foundUser = userService.findByUserName(userName);
+		if (foundUser is null) {
+			throw...
+		}
+		
+		// luu address
+		foundUser.getAddresses().add(address);
+		userService.save(foundUser);
+	}
 
 	// get user by id
 	// /users/id/<id>/age/.... -> path variable: template bat buoc, k thay doi duoc,
